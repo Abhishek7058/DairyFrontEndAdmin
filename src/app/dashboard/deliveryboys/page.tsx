@@ -124,12 +124,15 @@ export default function DeliveryBoysPage() {
 
   // Handle edit delivery boy
   const handleEditDeliveryBoy = () => {
+    if (!currentDeliveryBoy) return;
+    
     const updatedDeliveryBoys = deliveryBoys.map(boy => 
       boy.id === currentDeliveryBoy.id ? currentDeliveryBoy : boy
     );
     
     setDeliveryBoys(updatedDeliveryBoys);
     setIsEditModalOpen(false);
+    setCurrentDeliveryBoy(null);
   };
 
   // Handle delete delivery boy
