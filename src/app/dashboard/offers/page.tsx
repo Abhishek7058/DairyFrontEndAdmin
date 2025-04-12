@@ -87,6 +87,17 @@ export default function OffersPage() {
   const [statusFilter, setStatusFilter] = useState('');
   const [showCreateModal, setShowCreateModal] = useState(false);
 
+  // Add handler for creating new offer
+  const handleCreateOffer = (newOffer) => {
+    setOffers([...offers, { ...newOffer, id: `OFF${offers.length + 1}`.padStart(6, '0') }]);
+    setShowCreateModal(false);
+  };
+
+  // Add handler for deleting offer
+  const handleDeleteOffer = (offerId) => {
+    setOffers(offers.filter(offer => offer.id !== offerId));
+  };
+
   useEffect(() => {
     if (!isAuthenticated) {
       router.push('/login');
@@ -209,7 +220,12 @@ export default function OffersPage() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <button className="text-primary hover:text-blue-700 mr-3">Edit</button>
-                      <button className="text-red-600 hover:text-red-800">Delete</button>
+                      <button 
+                        onClick={() => handleDeleteOffer(offer.id)}
+                        className="text-red-600 hover:text-red-800"
+                      >
+                        Delete
+                      </button>
                     </td>
                   </tr>
                 ))}

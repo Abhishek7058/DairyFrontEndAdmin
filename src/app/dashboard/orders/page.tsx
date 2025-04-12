@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import DashboardLayout from '@/components/dashboard/DashboardLayout';
 
-// Mock data for orders
+// Mock data for orders 
 const mockOrders = [
   { id: 'ORD001', customer: 'Rahul Sharma', date: '2023-06-15', amount: 2500, status: 'Delivered', items: 5 },
   { id: 'ORD002', customer: 'Priya Patel', date: '2023-06-16', amount: 1800, status: 'Processing', items: 3 },
@@ -27,6 +27,16 @@ export default function OrdersPage() {
   const [sortConfig, setSortConfig] = useState({ key: 'id', direction: 'ascending' });
   const [filterStatus, setFilterStatus] = useState('');
 
+  // Add handlers for updating order status and deleting orders
+  const handleUpdateOrderStatus = (orderId: string, newStatus: string) => {
+    setOrders(orders.map(order => 
+      order.id === orderId ? { ...order, status: newStatus } : order
+    ));
+  };
+
+  const handleDeleteOrder = (orderId: string) => {
+    setOrders(orders.filter(order => order.id !== orderId));
+  };
   useEffect(() => {
     if (!isAuthenticated) {
       router.push('/login');

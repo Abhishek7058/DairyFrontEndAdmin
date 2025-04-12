@@ -27,6 +27,17 @@ export default function ProductsPage() {
   const [sortConfig, setSortConfig] = useState({ key: 'id', direction: 'ascending' });
   const [filterCategory, setFilterCategory] = useState('');
 
+  // Add handlers for updating product stock and deleting products
+  const handleUpdateStock = (productId: string, newStock: number) => {
+    setProducts(products.map(product =>
+      product.id === productId ? { ...product, stock: newStock } : product
+    ));
+  };
+
+  const handleDeleteProduct = (productId: string) => {
+    setProducts(products.filter(product => product.id !== productId));
+  };
+
   useEffect(() => {
     if (!isAuthenticated) {
       router.push('/login');
