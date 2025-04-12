@@ -108,12 +108,15 @@ const [currentCustomer, setCurrentCustomer] = useState<Customer | null>(null);
 
   // Handle edit customer
   const handleEditCustomer = () => {
+    if (!currentCustomer) return;
+    
     const updatedCustomers = customers.map(customer => 
       customer.id === currentCustomer.id ? currentCustomer : customer
     );
     
     setCustomers(updatedCustomers);
     setIsEditModalOpen(false);
+    setCurrentCustomer(null);
   };
 
   // Handle delete customer
