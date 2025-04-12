@@ -178,7 +178,7 @@ export default function DeliveryBoysPage() {
           <h1 className="text-2xl font-semibold text-gray-800 dark:text-dark-text">Delivery Boys</h1>
           <button 
             onClick={openAddModal}
-            className="px-4 py-2 bg-primary text-white rounded-md hover:bg-blue-600 transition-colors duration-200"
+            className="px-4 py-2 bg-primary text-white rounded-md bg-blue-600 transition-colors duration-200"
           >
             Add New Delivery Boy
           </button>

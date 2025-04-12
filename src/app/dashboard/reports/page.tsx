@@ -107,7 +107,7 @@ export default function ReportsPage() {
               <button 
                 onClick={() => handleExport('pdf')} 
                 disabled={isExporting}
-                className="px-3 py-2 bg-primary text-white rounded-md text-sm hover:bg-blue-600 transition-colors disabled:opacity-50"
+                className="px-3 py-2 bg-primary text-white rounded-md text-sm bg-blue-600 transition-colors disabled:opacity-50"
               >
                 {isExporting ? 'Exporting...' : 'Export PDF'}
               </button>
@@ -133,31 +133,31 @@ export default function ReportsPage() {
         <div className="flex flex-wrap gap-2 pb-4 border-b border-gray-200 dark:border-dark-border">
           <button
             onClick={() => setActiveReport('sales')}
-            className={`px-4 py-2 rounded-md transition-colors ${activeReport === 'sales' ? 'bg-primary text-white' : 'bg-gray-100 dark:bg-dark-card text-gray-700 dark:text-gray-300'}`}
+            className={`px-4 py-2 rounded-md transition-colors ${activeReport === 'sales' ? 'bg-primary text-white' : 'bg-gray-100 text-black'}`}
           >
             Sales Analytics
           </button>
           <button
             onClick={() => setActiveReport('products')}
-            className={`px-4 py-2 rounded-md transition-colors ${activeReport === 'products' ? 'bg-primary text-white' : 'bg-gray-100 dark:bg-dark-card text-gray-700 dark:text-gray-300'}`}
+            className={`px-4 py-2 rounded-md transition-colors ${activeReport === 'products' ? 'bg-primary text-white' : 'bg-gray-100 text-black'}`}
           >
             Product Performance
           </button>
           <button
             onClick={() => setActiveReport('delivery')}
-            className={`px-4 py-2 rounded-md transition-colors ${activeReport === 'delivery' ? 'bg-primary text-white' : 'bg-gray-100 dark:bg-dark-card text-gray-700 dark:text-gray-300'}`}
+            className={`px-4 py-2 rounded-md transition-colors ${activeReport === 'delivery' ? 'bg-primary text-white' : 'bg-gray-100 text-black'}`}
           >
             Delivery Performance
           </button>
           <button
             onClick={() => setActiveReport('customers')}
-            className={`px-4 py-2 rounded-md transition-colors ${activeReport === 'customers' ? 'bg-primary text-white' : 'bg-gray-100 dark:bg-dark-card text-gray-700 dark:text-gray-300'}`}
+            className={`px-4 py-2 rounded-md transition-colors ${activeReport === 'customers' ? 'bg-primary text-white' : 'bg-gray-100 text-black'}`}
           >
             Customer Insights
           </button>
           <button
             onClick={() => setActiveReport('inventory')}
-            className={`px-4 py-2 rounded-md transition-colors ${activeReport === 'inventory' ? 'bg-primary text-white' : 'bg-gray-100 dark:bg-dark-card text-gray-700 dark:text-gray-300'}`}
+            className={`px-4 py-2 rounded-md transition-colors ${activeReport === 'inventory' ? 'bg-primary text-white' : 'bg-gray-100 text-black'}`}
           >
             Inventory Status
           </button>

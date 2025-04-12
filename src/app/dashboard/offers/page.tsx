@@ -87,14 +87,29 @@ export default function OffersPage() {
   const [statusFilter, setStatusFilter] = useState('');
   const [showCreateModal, setShowCreateModal] = useState(false);
 
+  interface Offer {
+    id: string;
+    title: string;
+    description: string;
+    discountType: 'Percentage' | 'Fixed';
+    discountValue: number;
+    minOrderValue: number;
+    startDate: string;
+    endDate: string;
+    status: 'Active' | 'Expired' | 'Scheduled';
+    usageLimit: number;
+    usageCount: number;
+    applicableProducts: string[];
+  }
+
   // Add handler for creating new offer
-  const handleCreateOffer = (newOffer) => {
-    setOffers([...offers, { ...newOffer, id: `OFF${offers.length + 1}`.padStart(6, '0') }]);
+  const handleCreateOffer = (newOffer: Omit<Offer, 'id' | 'usageCount'>) => {
+    setOffers([...offers, { ...newOffer, id: `OFF${offers.length + 1}`.padStart(6, '0'), usageCount: 0 }]);
     setShowCreateModal(false);
   };
 
   // Add handler for deleting offer
-  const handleDeleteOffer = (offerId) => {
+  const handleDeleteOffer = (offerId: string) => {
     setOffers(offers.filter(offer => offer.id !== offerId));
   };
 
@@ -134,7 +149,7 @@ export default function OffersPage() {
           <h1 className="text-2xl font-semibold text-gray-800 dark:text-dark-text">Offers Management</h1>
           <button 
             onClick={() => setShowCreateModal(true)}
-            className="px-4 py-2 bg-primary text-white rounded-md hover:bg-blue-600 transition-colors duration-200"
+            className="px-4 py-2 bg-primary text-white rounded-md bg-blue-600 transition-colors duration-200"
           >
             Create New Offer
           </button>
@@ -255,12 +270,12 @@ export default function OffersPage() {
                 const newOffer = {
                   title: formData.get('title') as string,
                   description: formData.get('description') as string,
-                  discountType: formData.get('discountType') as string,
+                  discountType: formData.get('discountType') as 'Percentage' | 'Fixed',
                   discountValue: Number(formData.get('discountValue')),
                   minOrderValue: Number(formData.get('minOrderValue')),
                   startDate: formData.get('startDate') as string,
                   endDate: formData.get('endDate') as string,
-                  status: 'Active',
+                  status: 'Active' as const,
                   usageLimit: Number(formData.get('usageLimit')),
                   usageCount: 0,
                   applicableProducts: [formData.get('applicableProducts') as string]

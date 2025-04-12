@@ -93,7 +93,7 @@ export default function ProductsPage() {
       <div className="space-y-6">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-semibold text-gray-800 dark:text-dark-text">Products</h1>
-          <button className="px-4 py-2 bg-primary text-white rounded-md hover:bg-blue-600 transition-colors duration-200">
+          <button className="px-4 py-2 bg-primary text-white rounded-md bg-blue-600 transition-colors duration-200">
             Add New Product
           </button>
         </div>
