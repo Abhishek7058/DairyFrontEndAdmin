@@ -28,7 +28,17 @@ export default function CustomersPage() {
   const [filterStatus, setFilterStatus] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [currentCustomer, setCurrentCustomer] = useState<any>(null);
+  interface Customer {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  joinDate: string;
+  status: string;
+}
+
+const [currentCustomer, setCurrentCustomer] = useState<Customer | null>(null);
   const [newCustomer, setNewCustomer] = useState({
     id: '',
     name: '',
@@ -77,7 +87,7 @@ export default function CustomersPage() {
   };
 
   // Open edit modal
-  const openEditModal = (customer: any) => {
+  const openEditModal = (customer: Customer) => {
     setCurrentCustomer(customer);
     setIsEditModalOpen(true);
   };

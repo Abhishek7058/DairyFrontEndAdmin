@@ -27,8 +27,8 @@ export default function SubscriptionsPage() {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('plans'); // 'plans' or 'customers'
-  const [subscriptions, setSubscriptions] = useState(mockSubscriptions);
-  const [customerSubscriptions, setCustomerSubscriptions] = useState(mockCustomerSubscriptions);
+  const [subscriptions] = useState(mockSubscriptions);
+  const [customerSubscriptions] = useState(mockCustomerSubscriptions);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
 

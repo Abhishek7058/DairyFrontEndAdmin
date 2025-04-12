@@ -27,7 +27,20 @@ export default function DeliveryBoysPage() {
   const [filterRoute, setFilterRoute] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [currentDeliveryBoy, setCurrentDeliveryBoy] = useState<any>(null);
+  interface DeliveryBoy {
+    id: string;
+    name: string;
+    phone: string;
+    email: string;
+    address: string;
+    joinDate: string;
+    status: string;
+    route: string;
+    vehicleType: string;
+    vehicleNumber: string;
+  }
+
+  const [currentDeliveryBoy, setCurrentDeliveryBoy] = useState<DeliveryBoy | null>(null);
   const [newDeliveryBoy, setNewDeliveryBoy] = useState({
     id: '',
     name: '',
@@ -90,7 +103,7 @@ export default function DeliveryBoysPage() {
   };
 
   // Open edit modal
-  const openEditModal = (deliveryBoy: any) => {
+  const openEditModal = (deliveryBoy: DeliveryBoy) => {
     setCurrentDeliveryBoy(deliveryBoy);
     setIsEditModalOpen(true);
   };

@@ -7,7 +7,7 @@ import { useTheme } from 'next-themes';
 import DashboardLayout from '@/components/dashboard/DashboardLayout';
 
 export default function SettingsPage() {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated } = useAuth();
   const { theme, setTheme } = useTheme();
   const router = useRouter();
   
@@ -23,7 +23,7 @@ export default function SettingsPage() {
   const [taxRate, setTaxRate] = useState('5');
   
   // User roles mock data
-  const [roles, setRoles] = useState([
+  const [roles] = useState([
     { id: 1, name: 'Admin', permissions: ['all'] },
     { id: 2, name: 'Manager', permissions: ['view_all', 'edit_products', 'edit_orders', 'view_reports'] },
     { id: 3, name: 'Staff', permissions: ['view_products', 'view_orders', 'update_order_status'] },
