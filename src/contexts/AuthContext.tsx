@@ -36,13 +36,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = async (username: string, password: string): Promise<boolean> => {
-    // In a real application, you would validate credentials against an API
-    // This is a simple mock implementation for demonstration
-    if (username && password) {
+    // Validate against hardcoded admin credentials
+    if (username === 'admin' && password === 'password2810') {
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 500));
       
-      // For demo purposes, any non-empty username/password is accepted
       const userData = { username };
       setUser(userData);
       
