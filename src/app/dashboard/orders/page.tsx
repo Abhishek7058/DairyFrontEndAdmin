@@ -28,12 +28,14 @@ export default function OrdersPage() {
   const [filterStatus, setFilterStatus] = useState('');
 
   // Add handlers for updating order status and deleting orders
+  // Add handler for updating order status
   const handleUpdateOrderStatus = (orderId: string, newStatus: string) => {
-    setOrders(orders.map(order => 
+    setOrders(orders.map(order =>
       order.id === orderId ? { ...order, status: newStatus } : order
     ));
   };
-
+  
+  // Add handler for deleting order
   const handleDeleteOrder = (orderId: string) => {
     setOrders(orders.filter(order => order.id !== orderId));
   };
@@ -230,16 +232,23 @@ export default function OrdersPage() {
                       {order.items}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusBadgeColor(order.status)}`}>
-                        {order.status}
-                      </span>
+                      <select
+                        value={order.status}
+                        onChange={(e) => handleUpdateOrderStatus(order.id, e.target.value)}
+                        className={`px-2 py-1 text-xs font-semibold rounded-md border-0 ${getStatusBadgeColor(order.status)}`}
+                      >
+                        {statuses.map((status) => (
+                          <option key={status} value={status}>{status}</option>
+                        ))}
+                      </select>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <button className="text-primary hover:text-blue-700 mr-3">
-                        View
-                      </button>
-                      <button className="text-red-600 hover:text-red-800">
-                        Cancel
+                      <button className="text-primary hover:text-blue-700 mr-3">Edit</button>
+                      <button 
+                        onClick={() => handleDeleteOrder(order.id)}
+                        className="text-red-600 hover:text-red-800"
+                      >
+                        Delete
                       </button>
                     </td>
                   </tr>

@@ -249,82 +249,138 @@ export default function OffersPage() {
                   </svg>
                 </button>
               </div>
-              <div className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Offer Title</label>
-                    <input 
-                      type="text" 
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark-card dark:text-dark-text rounded-md focus:outline-none focus:ring-primary focus:border-primary" 
-                      placeholder="Enter offer title"
-                    />
+              <form onSubmit={(e) => {
+                e.preventDefault();
+                const formData = new FormData(e.currentTarget);
+                const newOffer = {
+                  title: formData.get('title') as string,
+                  description: formData.get('description') as string,
+                  discountType: formData.get('discountType') as string,
+                  discountValue: Number(formData.get('discountValue')),
+                  minOrderValue: Number(formData.get('minOrderValue')),
+                  startDate: formData.get('startDate') as string,
+                  endDate: formData.get('endDate') as string,
+                  status: 'Active',
+                  usageLimit: Number(formData.get('usageLimit')),
+                  usageCount: 0,
+                  applicableProducts: [formData.get('applicableProducts') as string]
+                };
+                handleCreateOffer(newOffer);
+              }}>
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Offer Title</label>
+                      <input 
+                        type="text" 
+                        name="title"
+                        required
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark-card dark:text-dark-text rounded-md focus:outline-none focus:ring-primary focus:border-primary" 
+                        placeholder="Enter offer title"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Discount Type</label>
+                      <select 
+                        name="discountType"
+                        required
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark-card dark:text-dark-text rounded-md focus:outline-none focus:ring-primary focus:border-primary"
+                      >
+                        <option value="Percentage">Percentage</option>
+                        <option value="Fixed">Fixed Amount</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Discount Value</label>
+                      <input 
+                        type="number" 
+                        name="discountValue"
+                        required
+                        min="0"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark-card dark:text-dark-text rounded-md focus:outline-none focus:ring-primary focus:border-primary" 
+                        placeholder="Enter discount value"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Minimum Order Value</label>
+                      <input 
+                        type="number" 
+                        name="minOrderValue"
+                        required
+                        min="0"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark-card dark:text-dark-text rounded-md focus:outline-none focus:ring-primary focus:border-primary" 
+                        placeholder="Enter minimum order value"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Start Date</label>
+                      <input 
+                        type="date" 
+                        name="startDate"
+                        required
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark-card dark:text-dark-text rounded-md focus:outline-none focus:ring-primary focus:border-primary" 
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">End Date</label>
+                      <input 
+                        type="date" 
+                        name="endDate"
+                        required
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark-card dark:text-dark-text rounded-md focus:outline-none focus:ring-primary focus:border-primary" 
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Usage Limit</label>
+                      <input 
+                        type="number" 
+                        name="usageLimit"
+                        required
+                        min="0"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark-card dark:text-dark-text rounded-md focus:outline-none focus:ring-primary focus:border-primary" 
+                        placeholder="Enter usage limit (0 for unlimited)"
+                      />
+                    </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Discount Type</label>
-                    <select className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark-card dark:text-dark-text rounded-md focus:outline-none focus:ring-primary focus:border-primary">
-                      <option value="Percentage">Percentage</option>
-                      <option value="Fixed">Fixed Amount</option>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Description</label>
+                    <textarea 
+                      name="description"
+                      required
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark-card dark:text-dark-text rounded-md focus:outline-none focus:ring-primary focus:border-primary" 
+                      rows={3}
+                      placeholder="Enter offer description"
+                    ></textarea>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Applicable Products</label>
+                    <select 
+                      name="applicableProducts"
+                      required
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark-card dark:text-dark-text rounded-md focus:outline-none focus:ring-primary focus:border-primary"
+                    >
+                      <option value="All Products">All Products</option>
+                      <option value="Selected Products">Selected Products</option>
+                      <option value="Subscription Plans">Subscription Plans</option>
                     </select>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Discount Value</label>
-                    <input 
-                      type="number" 
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark-card dark:text-dark-text rounded-md focus:outline-none focus:ring-primary focus:border-primary" 
-                      placeholder="Enter discount value"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Minimum Order Value</label>
-                    <input 
-                      type="number" 
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark-card dark:text-dark-text rounded-md focus:outline-none focus:ring-primary focus:border-primary" 
-                      placeholder="Enter minimum order value"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Start Date</label>
-                    <input 
-                      type="date" 
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark-card dark:text-dark-text rounded-md focus:outline-none focus:ring-primary focus:border-primary" 
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">End Date</label>
-                    <input 
-                      type="date" 
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark-card dark:text-dark-text rounded-md focus:outline-none focus:ring-primary focus:border-primary" 
-                    />
+                  <div className="flex justify-end space-x-3 pt-4 border-t dark:border-dark-border">
+                    <button 
+                      type="button"
+                      onClick={() => setShowCreateModal(false)}
+                      className="px-4 py-2 border border-gray-300 dark:border-dark-border text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200"
+                    >
+                      Cancel
+                    </button>
+                    <button 
+                      type="submit"
+                      className="px-4 py-2 bg-primary text-white rounded-md hover:bg-blue-600 transition-colors duration-200"
+                    >
+                      Create Offer
+                    </button>
                   </div>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Description</label>
-                  <textarea 
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark-card dark:text-dark-text rounded-md focus:outline-none focus:ring-primary focus:border-primary" 
-                    rows={3}
-                    placeholder="Enter offer description"
-                  ></textarea>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Applicable Products</label>
-                  <select className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark-card dark:text-dark-text rounded-md focus:outline-none focus:ring-primary focus:border-primary">
-                    <option value="All Products">All Products</option>
-                    <option value="Selected Products">Selected Products</option>
-                    <option value="Subscription Plans">Subscription Plans</option>
-                  </select>
-                </div>
-                <div className="flex justify-end space-x-3 pt-4 border-t dark:border-dark-border">
-                  <button 
-                    onClick={() => setShowCreateModal(false)}
-                    className="px-4 py-2 border border-gray-300 dark:border-dark-border text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200"
-                  >
-                    Cancel
-                  </button>
-                  <button className="px-4 py-2 bg-primary text-white rounded-md hover:bg-blue-600 transition-colors duration-200">
-                    Create Offer
-                  </button>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
         )}

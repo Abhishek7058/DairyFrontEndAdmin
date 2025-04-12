@@ -207,16 +207,26 @@ export default function ProductsPage() {
                       ₹{product.price}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                      {product.stock}
+                      <div className="flex items-center space-x-2">
+                        <input
+                          type="number"
+                          min="0"
+                          value={product.stock}
+                          onChange={(e) => handleUpdateStock(product.id, parseInt(e.target.value))}
+                          className="w-20 px-2 py-1 border border-gray-300 dark:border-dark-border dark:bg-dark-card dark:text-dark-text rounded-md focus:outline-none focus:ring-primary focus:border-primary"
+                        />
+                        <span>{product.unit}</span>
+                      </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                       {product.unit}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <button className="text-primary hover:text-blue-700 mr-3">
-                        Edit
-                      </button>
-                      <button className="text-red-600 hover:text-red-800">
+                      <button className="text-primary hover:text-blue-700 mr-3">Edit</button>
+                      <button 
+                        onClick={() => handleDeleteProduct(product.id)}
+                        className="text-red-600 hover:text-red-800"
+                      >
                         Delete
                       </button>
                     </td>
